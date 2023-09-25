@@ -197,6 +197,19 @@
         "build": {
           "buildTransitive/net6.0/_._": {}
         }
+      },
+      "Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.11"
+        },
+        "compile": {
+          "bin/placeholder/Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Models.dll": {}
+        }
       }
     }
   },
@@ -510,11 +523,17 @@
         "microsoft.extensions.primitives.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "path": "../Models/Models.csproj",
+      "msbuildProject": "../Models/Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Microsoft.EntityFrameworkCore >= 7.0.11"
+      "Microsoft.EntityFrameworkCore >= 7.0.11",
+      "Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -523,11 +542,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\Models\\Models.csproj",
-      "projectName": "Models",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\Models\\Models.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\DataAccess\\DataAccess.csproj",
+      "projectName": "DataAccess",
+      "projectPath": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\Models\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -543,7 +562,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Desktop\\C++\\twitter-clone\\Models\\Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
