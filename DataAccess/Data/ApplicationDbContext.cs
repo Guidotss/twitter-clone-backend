@@ -27,6 +27,8 @@ namespace DataAccess.Data
         {
              base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); 
+            
+
         }
     }
 }
