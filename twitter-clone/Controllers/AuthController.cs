@@ -51,5 +51,31 @@ namespace twitter_clone.Controllers
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto userData)
+        {
+            try
+            {
+                var userFromDb = await _unitOfWork.User.GetUserByEmail(userData.Email);
+                if(userFromDb == null)
+                {
+                    return BadRequest(new { ok = false, error = "Email or password is incorrect" });
+                }
+
+                if (!_unitOfWork.User.VerifyPassword( userFromDb,userData.Password))
+                {
+                    return Unauthorized(new { ok = false, error = "Email or password is incorrect" });
+                }
+
+                var token = _authorization.GetToken(userFromDb.Email, userFromDb.Name, userFromDb.CreatedAt);
+
+                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token}); 
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message }); 
+            }
+        }
     }
 }
