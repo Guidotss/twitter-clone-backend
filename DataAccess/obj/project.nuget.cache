@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dhJ0iXIhBq6lW4hDBEt2BBc2Oa0hRccy748UnUAQqAA3DXZ0h3n2cJVyL9Lv7IaGF1K4D2QvQC+1VfvFuCXJug==",
+  "dgSpecHash": "fd6P5g31FZGYbNiHC6gheB7MqRwoUqc3kdWsxd7LH6nGdqsnbAFME0sEQcsxzzXxNZ/BNrFy+Ri9b7RWjtnq+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.4\\microsoft.aspnet.identity.core.2.2.4.nupkg.sha512",
