@@ -1,0 +1,55 @@
+﻿using DataAccess.Data;
+using DataAccess.Repository.IRepository;
+using DataTransfer;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using twitter_clone.Services.Authorization.IAuthorization;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace twitter_clone.Controllers
+{
+    [Route("api/auth/")]
+    [ApiController]
+    public class AuthController : ControllerBase
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthorization _authorization;
+        
+
+        public AuthController(IUnitOfWork unitOfWork, IAuthorization authorization)
+        {
+            _unitOfWork = unitOfWork;     
+            _authorization = authorization;
+        }
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto userData)
+        {
+            try
+            {
+                var userFromDb = await _unitOfWork.User.GetUserByEmail(userData.Email);
+                if (userFromDb != null)
+                {
+                    return BadRequest(new { ok = false, error = "Email is already in use" });
+                }
+                var user = new User
+                {
+                    Name = userData.Name,
+                    Email = userData.Email,
+                    Password = _unitOfWork.User.HashPassword(userData.Password)
+                };
+                await _unitOfWork.User.AddAsync(user);
+                await _unitOfWork.Save();
+                var token = _authorization.GetToken(user.Email, user.Name, user.CreatedAt);
+
+                return Ok(new { ok = true, newUser = new { name = user.Name, email = user.Email }, token });
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
+        }
+    }
+}
