@@ -13,6 +13,6 @@ namespace Models
         public Guid FollowerId { get; set; } = default!;
         public User Follower { get; set; } = default!;
         public Guid FolloweeId { get; set; } = default!;
-        public User Followee { get; set; } = default!;
+        public User Followee { get; set; } = default!; 
     }
 }

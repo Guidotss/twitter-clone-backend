@@ -14,32 +14,20 @@ namespace DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.Property(comment => comment.Id)
-                .IsRequired()
-                .HasDefaultValueSql("gen_random_uuid()"); 
-            builder.Property(comment => comment.Content)
-                .HasMaxLength(280)
-                .IsRequired();
-             
-            builder.Property(comment => comment.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("now()");
-
-            builder.Property(comment => comment.UpdatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("now()");
+            builder.Property(comment => comment.Id).IsRequired().HasDefaultValueSql("gen_random_uuid()"); 
+            builder.Property(comment => comment.Content).HasMaxLength(280).IsRequired();
+            builder.Property(comment => comment.CreatedAt).IsRequired().HasDefaultValueSql("now()");
+            builder.Property(comment => comment.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
 
             builder.HasOne(comment => comment.User)
-                .WithMany(user => user.Comments)
-                .HasForeignKey(comment => comment.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                    .WithMany(user => user.Comments)
+                    .HasForeignKey(comment => comment.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
             
             builder.HasOne(comment => comment.Tweet)
-                .WithMany(tweet => tweet.Comments)
-                .HasForeignKey(comment => comment.TweetId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.ToTable("Comment");        
+                    .WithMany(tweet => tweet.Comments)
+                    .HasForeignKey(comment => comment.TweetId)
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
