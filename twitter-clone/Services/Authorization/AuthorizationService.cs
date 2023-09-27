@@ -12,8 +12,9 @@ namespace twitter_clone.Services.Authorization.IAuthorization
         {
             _configuration = configuration; 
         }
-        public string GetToken(string email, string name, DateTime createAt)
+        public string GetToken(string email, string name)
         {
+            DateTime createAt = DateTime.UtcNow;
             var key = _configuration.GetValue<string>("JsonSecret");
             var keyBytes = Encoding.ASCII.GetBytes(key!);
 

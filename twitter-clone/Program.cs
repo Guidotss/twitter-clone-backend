@@ -44,6 +44,14 @@ builder.Services.AddAuthentication(config =>
     
 });
 
+builder.Services.AddCors(setupAction =>
+{
+    setupAction.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+}); 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -51,6 +59,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 

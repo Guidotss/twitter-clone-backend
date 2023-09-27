@@ -2,7 +2,7 @@
 {
     public interface IAuthorization
     {
-        public string GetToken(string email,string name, DateTime createAt);
+        public string GetToken(string email, string name);
         public bool VerifyToken(string token);
 
     }

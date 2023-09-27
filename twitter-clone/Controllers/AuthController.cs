@@ -1,8 +1,10 @@
 ﻿using DataAccess.Data;
 using DataAccess.Repository.IRepository;
 using DataTransfer;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Security.Policy;
 using twitter_clone.Services.Authorization.IAuthorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,6 +12,7 @@ using twitter_clone.Services.Authorization.IAuthorization;
 namespace twitter_clone.Controllers
 {
     [Route("api/auth/")]
+    [EnableCors("AllowAll")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -41,7 +44,7 @@ namespace twitter_clone.Controllers
                 };
                 await _unitOfWork.User.AddAsync(user);
                 await _unitOfWork.Save();
-                var token = _authorization.GetToken(user.Email, user.Name, user.CreatedAt);
+                var token = _authorization.GetToken(user.Email, user.Name);
 
                 return Ok(new { ok = true, newUser = new { name = user.Name, email = user.Email }, token });
             }
@@ -68,7 +71,7 @@ namespace twitter_clone.Controllers
                     return Unauthorized(new { ok = false, error = "Email or password is incorrect" });
                 }
 
-                var token = _authorization.GetToken(userFromDb.Email, userFromDb.Name, userFromDb.CreatedAt);
+                var token = _authorization.GetToken(userFromDb.Email, userFromDb.Name);
 
                 return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token}); 
             }
@@ -76,6 +79,35 @@ namespace twitter_clone.Controllers
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message }); 
             }
+        }
+        [HttpPost]
+        [Route("login/google")]
+        public IActionResult LoginGoogle([FromBody] RegisterWithPlatformsDto userData)
+        {
+            try
+            {
+                var token = _authorization.GetToken(userData.Email, userData.Name);
+                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token }); 
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("login/github")]
+        public IActionResult LoginGitHub([FromBody] RegisterWithPlatformsDto userData)
+        {
+            try
+            {
+                var token = _authorization.GetToken(userData.Email, userData.Name);
+                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }   
         }
     }
 }
