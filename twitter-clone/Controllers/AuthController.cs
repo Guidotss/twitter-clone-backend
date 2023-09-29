@@ -18,11 +18,11 @@ namespace twitter_clone.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthorization _authorization;
-        
+
 
         public AuthController(IUnitOfWork unitOfWork, IAuthorization authorization)
         {
-            _unitOfWork = unitOfWork;     
+            _unitOfWork = unitOfWork;
             _authorization = authorization;
         }
         [HttpPost]
@@ -61,23 +61,23 @@ namespace twitter_clone.Controllers
             try
             {
                 var userFromDb = await _unitOfWork.User.GetUserByEmail(userData.Email);
-                if(userFromDb == null)
+                if (userFromDb == null)
                 {
                     return BadRequest(new { ok = false, error = "Email or password is incorrect" });
                 }
 
-                if (!_unitOfWork.User.VerifyPassword( userFromDb,userData.Password))
+                if (!_unitOfWork.User.VerifyPassword(userFromDb, userData.Password))
                 {
                     return Unauthorized(new { ok = false, error = "Email or password is incorrect" });
                 }
 
                 var token = _authorization.GetToken(userFromDb.Email, userFromDb.Name);
 
-                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token}); 
+                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message }); 
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }
         }
         [HttpPost]
@@ -87,9 +87,9 @@ namespace twitter_clone.Controllers
             try
             {
                 var token = _authorization.GetToken(userData.Email, userData.Name);
-                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token }); 
+                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }
@@ -104,10 +104,36 @@ namespace twitter_clone.Controllers
                 var token = _authorization.GetToken(userData.Email, userData.Name);
                 return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
-            }   
+            }
         }
-    }
+        [HttpGet]
+        [Route("renew-token")]
+        public async Task<IActionResult> RenewToken([FromHeader(Name = "Authorization")] string authorizationHeader)
+        {
+            var token = authorizationHeader.Split(" ")[1]; 
+            bool isValid = _authorization.VerifyToken(token);
+            if (!isValid)
+            {
+                return Unauthorized(new { ok = false, error = "Invalid token"});
+            }
+            try
+            {
+                var email = _authorization.GetUserEmailFromToken(token);
+                var userFromDb = await _unitOfWork.User.GetUserByEmail(email);
+                if (userFromDb == null)
+                {
+                    return Unauthorized(new { ok = false, error = "Invalid token" });
+                }
+                var newToken = _authorization.GetToken(userFromDb.Email, userFromDb.Name);
+                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token = newToken });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message }); 
+            }
+        }
+    } 
 }

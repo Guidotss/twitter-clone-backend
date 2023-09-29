@@ -4,6 +4,7 @@
     {
         public string GetToken(string email, string name);
         public bool VerifyToken(string token);
+        public string GetUserEmailFromToken(string token);
 
     }
 }
