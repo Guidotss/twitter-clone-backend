@@ -19,6 +19,7 @@ namespace DataAccess.Configuration
             builder.Property(Tweet => Tweet.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(tweet => tweet.UserId).IsRequired();
 
+    
             builder.HasMany(tweet => tweet.Likes)
                     .WithOne(like => like.Tweet)
                     .HasForeignKey(like => like.TweetId)

@@ -2,9 +2,13 @@
 using DataAccess.Repository.IRepository;
 using DataTransfer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.IdentityModel.Tokens;
 using Models;
 using System.Data.Entity.Validation;
+using System.Linq.Expressions;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,30 +26,40 @@ namespace twitter_clone.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/<TweetsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            string userId = Request.RouteValues["userId"].ToString();
+           
+            bool isValid = Guid.TryParse(userId, out Guid userIdGuid);
+            if(!isValid)
+            {
+                return BadRequest(new { ok = false, error = "Invalid id" }); 
+            }
+            try
+            {
+                var userFromdb = await _unitOfWork.User.GetAsync(userIdGuid);
+                if (userFromdb == null)
+                {
+                    return BadRequest(new { ok = false, error = "User not found" });
+                }
+
+                var tweetsFromDb = await _unitOfWork.Tweet.GetAllAsync();
+
+
+                return Ok(new { ok = true, data = userFromdb });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
         }
 
-        // GET api/<TweetsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<TweetsController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TweetDto tweet)
         {
-            var options  = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-           
             try
             {
                 var userFromDb = await _unitOfWork.User.GetAsync(tweet.userId);
@@ -69,8 +83,6 @@ namespace twitter_clone.Controllers
                 await _unitOfWork.Save();
 
                 return Ok(new { ok = true, newTweet });
-
-                
             }
             catch(Exception ex)
             {
@@ -78,18 +90,6 @@ namespace twitter_clone.Controllers
             }            
 
            
-        }
-
-        // PUT api/<TweetsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<TweetsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

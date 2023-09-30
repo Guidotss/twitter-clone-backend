@@ -293,11 +293,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Models.Tweet", b =>
                 {
-                    b.HasOne("Models.User", null)
+                    b.HasOne("Models.User", "User")
                         .WithMany("Tweets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Models.Tweet", b =>

@@ -21,9 +21,7 @@ namespace DataAccess.Configuration
             builder.Property(user => user.ImageUrl).IsRequired(false);
             builder.Property(user => user.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(user => user.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
-
-            
-
+    
             builder.HasMany(user => user.Followers)
                     .WithOne(follow => follow.Follower)
                     .HasForeignKey(follow => follow.FollowerId)

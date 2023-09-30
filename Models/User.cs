@@ -10,7 +10,6 @@
         public string? ImageUrl { get; set; } 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
         public ICollection<Tweet> Tweets { get; set; } = new List<Tweet>();
         public ICollection<Follow> Followers { get; set; } = new List<Follow>();
         public ICollection<Follow> Following { get; set; } = new List<Follow>();
