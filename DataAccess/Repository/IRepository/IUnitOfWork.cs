@@ -8,7 +8,8 @@ namespace DataAccess.Repository.IRepository
 {
     public interface IUnitOfWork : IDisposable
     {
-        public IUserRepository User{ get; }
+        public IUserRepository User { get; }
+        public ITweetRepository Tweet { get; }
         public Task Save();
 
     }

@@ -12,10 +12,12 @@ namespace DataAccess.Repository
     {
         private readonly ApplicationDbContext _context;
         public IUserRepository User { get; private set; }
+        public ITweetRepository Tweet { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _context = db;
             User = new UserRepository(_context);
+            Tweet = new TweetRepository(_context);
         }
 
         public void Dispose() => _context.Dispose();

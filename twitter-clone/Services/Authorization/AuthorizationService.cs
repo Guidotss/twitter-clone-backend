@@ -12,7 +12,7 @@ namespace twitter_clone.Services.Authorization.IAuthorization
         {
             _configuration = configuration; 
         }
-        public string GetToken(string email, string name )
+        public string GetToken(string email, string name, Guid id )
         {
             DateTime createAt = DateTime.UtcNow;
             var key = _configuration.GetValue<string>("JsonSecret");
@@ -22,7 +22,7 @@ namespace twitter_clone.Services.Authorization.IAuthorization
             
             claims.AddClaim(new Claim(ClaimTypes.Email, email));
             claims.AddClaim(new Claim(ClaimTypes.Name, name));
-            
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, id.ToString()));
 
             var credentialsToken = new SigningCredentials(
                     new SymmetricSecurityKey(keyBytes),

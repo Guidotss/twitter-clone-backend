@@ -1,13 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.Data;
+using DataAccess.Repository.IRepository;
+using DataTransfer;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using System.Data.Entity.Validation;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace twitter_clone.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tweet")]
     [ApiController]
     public class TweetsController : ControllerBase
     {
+        
+        private readonly IUnitOfWork _unitOfWork;
+
+        public TweetsController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         // GET: api/<TweetsController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -24,8 +38,47 @@ namespace twitter_clone.Controllers
 
         // POST api/<TweetsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] TweetDto tweet)
         {
+            var options  = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+           
+            try
+            {
+                var userFromDb = await _unitOfWork.User.GetAsync(tweet.userId);
+                if (userFromDb == null)
+                {
+                    return StatusCode(400, new { ok = false, error = "User not found" });
+                }
+
+                var newTweet = new Tweet
+                {
+                    Content = tweet.Content,
+                    UserId = tweet.userId,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    Likes = new List<Like>(),
+                    Retweets = new List<Retweet>(),
+                    Comments = new List<Comment>()
+                };
+
+                
+                var tweetToCreate = JsonSerializer.Serialize(newTweet, options);
+                var tweetFromDb = await _unitOfWork.Tweet.AddAsync(tweetToCreate);
+                await _unitOfWork.Save();
+
+
+
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }            
+
+           
         }
 
         // PUT api/<TweetsController>/5
