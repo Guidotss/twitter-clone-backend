@@ -22,10 +22,7 @@ namespace DataAccess.Configuration
             builder.Property(user => user.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(user => user.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
 
-            builder.HasMany(user => user.Tweets)
-                    .WithOne(tweet => tweet.User)
-                    .HasForeignKey(tweet => tweet.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            
 
             builder.HasMany(user => user.Followers)
                     .WithOne(follow => follow.Follower)

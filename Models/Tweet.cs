@@ -13,7 +13,6 @@ namespace Models
         public DateTime CreatedAt { get; set; } = default!;
         public DateTime UpdatedAt { get; set; } = default!;
         public Guid UserId { get; set; } = default!;
-        public User User { get; set; } = default!;
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Retweet> Retweets { get; set; } = new List<Retweet>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();

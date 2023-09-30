@@ -9,6 +9,7 @@ namespace DataAccess.Repository.IRepository
 {
     public interface ITweetRepository : IRepository<Tweet>
     {
-        public void update(Tweet tweet); 
+        public void Update(Tweet tweet);
+        
     }
 }

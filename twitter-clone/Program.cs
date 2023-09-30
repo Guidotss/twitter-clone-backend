@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 using twitter_clone.Services.Authorization.IAuthorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,7 +51,7 @@ builder.Services.AddCors(setupAction =>
     {
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
-}); 
+});
 
 var app = builder.Build();
 

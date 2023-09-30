@@ -16,10 +16,10 @@ namespace DataAccess.Repository
         {
             _db = db;
         }
-        public void update(Tweet tweet)
+        public void Update(Tweet tweet)
         {
             var tweetFromDb = _db.Tweet.FirstOrDefault(t => t.Id == tweet.Id);
-            if(tweetFromDb != null)
+            if (tweetFromDb != null)
             {
                 tweetFromDb.Content = tweet.Content ?? tweetFromDb.Content;
                 tweetFromDb.Likes = tweet.Likes ?? tweetFromDb.Likes;

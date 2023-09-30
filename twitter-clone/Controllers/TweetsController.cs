@@ -65,13 +65,12 @@ namespace twitter_clone.Controllers
                     Comments = new List<Comment>()
                 };
 
-                
-                var tweetToCreate = JsonSerializer.Serialize(newTweet, options);
-                var tweetFromDb = await _unitOfWork.Tweet.AddAsync(tweetToCreate);
+                await _unitOfWork.Tweet.AddAsync(newTweet);
                 await _unitOfWork.Save();
 
+                return Ok(new { ok = true, newTweet });
 
-
+                
             }
             catch(Exception ex)
             {
