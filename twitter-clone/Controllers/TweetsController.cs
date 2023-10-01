@@ -48,7 +48,7 @@ namespace twitter_clone.Controllers
                 var tweetsFromDb = await _unitOfWork.Tweet.GetAllAsync();
 
 
-                return Ok(new { ok = true, data = userFromdb });
+                return Ok(new { ok = true, data = userFromdb.Tweets });
             }
             catch(Exception ex)
             {
