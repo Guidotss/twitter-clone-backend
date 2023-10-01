@@ -26,9 +26,22 @@ namespace twitter_clone.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<IActionResult> GetAllTweets()
+        {
+            try
+            {
+                var tweetsFromDb = await _unitOfWork.Tweet.GetAllAsync();
+                return Ok(new { ok = true, data = tweetsFromDb });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
+        }
+
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetTweetsByUser()
         {
             string userId = Request.RouteValues["userId"].ToString();
            
