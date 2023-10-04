@@ -14,7 +14,7 @@ using System.Text.Json.Serialization;
 
 namespace twitter_clone.Controllers
 {
-    [Route("api/tweet")]
+    [Route("api/tweets")]
     [ApiController]
     public class TweetsController : ControllerBase
     {
@@ -30,8 +30,10 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var tweetsFromDb = await _unitOfWork.Tweet.GetAllAsync();
-                return Ok(new { ok = true, data = tweetsFromDb });
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
+                var userToReturn = userFromDb.Select(user => new { user.Id,user.Name, user.ImageUrl, tweets = user.Tweets.Reverse() });
+
+                return Ok(new { ok = true, tweets =  userToReturn });
             }
             catch(Exception ex)
             {
@@ -52,16 +54,9 @@ namespace twitter_clone.Controllers
             }
             try
             {
-                var userFromdb = await _unitOfWork.User.GetAsync(userIdGuid);
-                if (userFromdb == null)
-                {
-                    return BadRequest(new { ok = false, error = "User not found" });
-                }
+                var userFromDb = await _unitOfWork.User.GetFirst(u => u.Id == userIdGuid, "Tweets");
 
-                var tweetsFromDb = await _unitOfWork.Tweet.GetAllAsync();
-
-
-                return Ok(new { ok = true, data = userFromdb.Tweets });
+                return Ok(new { ok = true, tweets = userFromDb.Tweets.Reverse() });
             }
             catch(Exception ex)
             {

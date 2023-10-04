@@ -13,12 +13,12 @@ namespace DataAccess.Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _db;
-        internal DbSet<T> dbSet; 
+        internal DbSet<T> dbSet;
 
-        public Repository( ApplicationDbContext db)
+        public Repository(ApplicationDbContext db)
         {
             _db = db;
-            dbSet = _db.Set<T>(); 
+            dbSet = _db.Set<T>();
         }
         public async Task AddAsync(T entity) => await dbSet.AddAsync(entity);
         public async Task AddRangeAsync(IEnumerable<T> entity) => await dbSet.AddRangeAsync(entity);
@@ -26,33 +26,34 @@ namespace DataAccess.Repository
         {
             IQueryable<T> query = dbSet;
 
-            if(filter != null)
+            if (filter != null)
             {
                 query = query.Where(filter);
             }
 
-            if(orderBy != null)
+            if (orderBy != null)
             {
-                query = orderBy(query); 
+                query = orderBy(query);
             }
 
-            if(includeProperties != null)
+            if (includeProperties != null)
             {
-                foreach(var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
             }
 
-            if(!isTracking)
+            if (!isTracking)
             {
                 query = query.AsNoTracking();
             }
-            
+
             return await query.ToListAsync();
         }
 
         public async Task<T> GetAsync(Guid id) => await dbSet.FindAsync(id);
+
         public Task<T> GetFirst(Expression<Func<T, bool>> filter = null, string includeProperties = "", bool isTracking = true)
         {
             IQueryable<T> query = dbSet;
