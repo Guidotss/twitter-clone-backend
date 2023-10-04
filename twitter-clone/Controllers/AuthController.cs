@@ -46,7 +46,7 @@ namespace twitter_clone.Controllers
                 await _unitOfWork.Save();
                 var token = _authorization.GetToken(user.Email, user.Name, user.Id);
 
-                return Ok(new { ok = true, newUser = new { name = user.Name, email = user.Email }, token });
+                return Ok(new { ok = true, newUser = new { id = user.Id,name = user.Name, email = user.Email }, token });
             }
 
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace twitter_clone.Controllers
 
                 var token = _authorization.GetToken(userFromDb.Email, userFromDb.Name, userFromDb.Id);
 
-                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token });
+                return Ok(new { ok = true, user = new { id = userFromDb.Id, name = userFromDb.Name, email = userFromDb.Email }, token });
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace twitter_clone.Controllers
             try
             {
                 var token = _authorization.GetToken(userData.Email, userData.Name, userData.Id);
-                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token });
+                return Ok(new { ok = true, user = new {id = userData.Id, name = userData.Name, email = userData.Email }, token });
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace twitter_clone.Controllers
             try
             {
                 var token = _authorization.GetToken(userData.Email, userData.Name, userData.Id);
-                return Ok(new { ok = true, user = new { name = userData.Name, email = userData.Email }, token });
+                return Ok(new { ok = true, user = new {id = userData.Id, name = userData.Name, email = userData.Email }, token });
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace twitter_clone.Controllers
                     return Unauthorized(new { ok = false, error = "Invalid token" });
                 }
                 var newToken = _authorization.GetToken(userFromDb.Email, userFromDb.Name, userFromDb.Id);
-                return Ok(new { ok = true, user = new { name = userFromDb.Name, email = userFromDb.Email }, token = newToken });
+                return Ok(new { ok = true, user = new {id = userFromDb.Id, name = userFromDb.Name, email = userFromDb.Email }, token = newToken });
             }
             catch(Exception ex)
             {

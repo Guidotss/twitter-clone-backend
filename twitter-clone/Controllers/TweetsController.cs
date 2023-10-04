@@ -31,10 +31,11 @@ namespace twitter_clone.Controllers
             try
             {
                 var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
-                var userToReturn = userFromDb.Select(user => new { user.Id,user.Name, user.ImageUrl, tweets = user.Tweets.Reverse() });
+                var results = userFromDb.Select(user => new { user.Id,user.Name, user.ImageUrl, tweets = user.Tweets.Reverse() });
 
-                return Ok(new { ok = true, tweets =  userToReturn });
+                return Ok(new { ok = true, results  });
             }
+
             catch(Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
