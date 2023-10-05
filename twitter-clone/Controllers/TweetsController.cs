@@ -2,6 +2,7 @@
 using DataTransfer;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Security.Cryptography;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,16 +24,15 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
-                var results = userFromDb.Select(user => 
-                    new
-                    {
-                        user = new { id = user.Id, name = user.Name, email = user.Email, imageUrl = user.ImageUrl},
-                        tweets = user.Tweets.Reverse() 
-                    }
-                );
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null,null, "Tweets");
+                var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
-                return Ok(new { ok = true, results });
+                var userData = userFromDb.Select(u => new { user = new { id = u.Id ,name = u.Name, email = u.Email, imageUr = u.ImageUrl }});
+                var tweetsWithUser = tweets.Select(t => new { tweet = t, user = userData.Where(u => u.user.id == t.UserId).FirstOrDefault() }); 
+               
+               
+                return Ok(new { ok = true, results = tweetsWithUser  });
+
             }
 
             catch(Exception ex)
@@ -90,7 +90,13 @@ namespace twitter_clone.Controllers
                 await _unitOfWork.Tweet.AddAsync(newTweet);
                 await _unitOfWork.Save();
 
-                return Ok(new { ok = true, tweet = newTweet });
+                var results = new
+                {
+                    user = new { id = userFromDb.Id, name = userFromDb.Name, email = userFromDb.Email, imageUrl = userFromDb.ImageUrl },
+                    tweet = newTweet
+                };
+
+                return Ok(new { ok = true, results });
             }
             catch(Exception ex)
             {
