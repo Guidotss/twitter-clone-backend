@@ -1,14 +1,7 @@
-﻿using DataAccess.Data;
-using DataAccess.Repository.IRepository;
+﻿using DataAccess.Repository.IRepository;
 using DataTransfer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.IdentityModel.Tokens;
 using Models;
-using System.Data.Entity.Validation;
-using System.Linq.Expressions;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,9 +24,15 @@ namespace twitter_clone.Controllers
             try
             {
                 var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
-                var results = userFromDb.Select(user => new { user.Id,user.Name, user.ImageUrl, tweets = user.Tweets.Reverse() });
+                var results = userFromDb.Select(user => 
+                    new
+                    {
+                        user = new { id = user.Id, name = user.Name, email = user.Email, imageUrl = user.ImageUrl},
+                        tweets = user.Tweets.Reverse() 
+                    }
+                );
 
-                return Ok(new { ok = true, results  });
+                return Ok(new { ok = true, results });
             }
 
             catch(Exception ex)
@@ -91,7 +90,7 @@ namespace twitter_clone.Controllers
                 await _unitOfWork.Tweet.AddAsync(newTweet);
                 await _unitOfWork.Save();
 
-                return Ok(new { ok = true, newTweet });
+                return Ok(new { ok = true, tweet = newTweet });
             }
             catch(Exception ex)
             {

@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\guido\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
+      "projectUniqueName": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
       "projectName": "DataTransfer",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataTransfer\\obj\\",
+      "projectPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
+      "packagesPath": "C:\\Users\\guido\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataTransfer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\guido\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

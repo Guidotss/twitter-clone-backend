@@ -2991,19 +2991,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\guido\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
+      "projectUniqueName": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
       "projectName": "twitter-clone",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\twitter-clone\\obj\\",
+      "projectPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
+      "packagesPath": "C:\\Users\\guido\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\twitter-clone\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\guido\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3017,14 +3017,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataAccess\\DataAccess.csproj"
             },
-            "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj"
+            "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
+              "projectPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj"
             },
-            "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Desktop\\C#\\twitter-clone-backend\\Models\\Models.csproj"
+            "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\guido\\OneDrive\\Escritorio\\twitter-clone-backend\\Models\\Models.csproj"
             }
           }
         }
