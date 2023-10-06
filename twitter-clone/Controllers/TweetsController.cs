@@ -27,8 +27,8 @@ namespace twitter_clone.Controllers
                 var userFromDb = await _unitOfWork.User.GetAllAsync(null,null, "Tweets");
                 var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
-                var userData = userFromDb.Select(u => new { user = new { id = u.Id ,name = u.Name, email = u.Email, imageUr = u.ImageUrl }});
-                var tweetsWithUser = tweets.Select(t => new { tweet = t, user = userData.Where(u => u.user.id == t.UserId).FirstOrDefault() }); 
+                var userData = userFromDb.Select(u => new {  id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl } ); ;
+                var tweetsWithUser = tweets.Select(t => new { tweet = t, user = userData.Where(u => u.id == t.UserId).FirstOrDefault() }); 
                
                
                 return Ok(new { ok = true, results = tweetsWithUser  });
