@@ -18,7 +18,7 @@ namespace DataAccess.Configuration
             builder.Property(user => user.Email).IsRequired().HasMaxLength(50);
             builder.Property(user => user.Password).IsRequired(); 
             builder.Property(user => user.Bio).IsRequired(false).HasMaxLength(120);
-            builder.Property(user => user.ImageUrl).IsRequired(false);
+            builder.Property(user => user.ImageUrl).IsRequired(false).HasDefaultValue("res.cloudinary.com/dqsqafh2n/image/upload/v1696429350/default_profile_400x400_vc3l5c.png");
             builder.Property(user => user.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(user => user.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
     

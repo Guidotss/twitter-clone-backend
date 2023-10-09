@@ -12,7 +12,7 @@ namespace twitter_clone.Controllers
     [ApiController]
     public class TweetsController : ControllerBase
     {
-        
+
         private readonly IUnitOfWork _unitOfWork;
 
         public TweetsController(IUnitOfWork unitOfWork)
@@ -24,18 +24,18 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAllAsync(null,null, "Tweets");
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
                 var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
-                var userData = userFromDb.Select(u => new {  id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl } ); ;
-                var tweetsWithUser = tweets.Select(t => new { tweet = t, user = userData.Where(u => u.id == t.UserId).FirstOrDefault() }); 
-               
-               
-                return Ok(new { ok = true, results = tweetsWithUser  });
+                var userData = userFromDb.Select(u => new { id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl }); ;
+                var tweetsWithUser = tweets.Select(t => new { tweet = t, user = userData.Where(u => u.id == t.UserId).FirstOrDefault() });
+
+
+                return Ok(new { ok = true, results = tweetsWithUser });
 
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }
@@ -46,11 +46,11 @@ namespace twitter_clone.Controllers
         public async Task<IActionResult> GetTweetsByUser()
         {
             string userId = Request.RouteValues["userId"].ToString();
-           
+
             bool isValid = Guid.TryParse(userId, out Guid userIdGuid);
-            if(!isValid)
+            if (!isValid)
             {
-                return BadRequest(new { ok = false, error = "Invalid id" }); 
+                return BadRequest(new { ok = false, error = "Invalid id" });
             }
             try
             {
@@ -58,7 +58,7 @@ namespace twitter_clone.Controllers
 
                 return Ok(new { ok = true, tweets = userFromDb.Tweets.Reverse() });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }
@@ -98,12 +98,26 @@ namespace twitter_clone.Controllers
 
                 return Ok(new { ok = true, results });
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
+
+
+        }
+        [HttpPost]
+        [Route("{tweetId}")]
+        public async Task<IActionResult> createComment([FromBody] CommentDto commentData)
+        {
+            try
+            {
+                return Ok(new { ok = true, comment = commentData });
+            }
             catch(Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
-            }            
-
-           
+            }
         }
+            
     }
 }
