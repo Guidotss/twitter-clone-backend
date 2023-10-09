@@ -20,3 +20,14 @@ C:\Users\guido\OneDrive\Escritorio\twitter-clone-backend\DataTransfer\obj\Debug\
 C:\Users\guido\OneDrive\Escritorio\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\refint\DataTransfer.dll
 C:\Users\guido\OneDrive\Escritorio\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.pdb
 C:\Users\guido\OneDrive\Escritorio\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\ref\DataTransfer.dll
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\bin\Debug\net7.0\DataTransfer.deps.json
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\bin\Debug\net7.0\DataTransfer.dll
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\bin\Debug\net7.0\DataTransfer.pdb
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.dll
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\refint\DataTransfer.dll
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\DataTransfer.pdb
+C:\Users\Administrator\Desktop\twitter-clone-backend\DataTransfer\obj\Debug\net7.0\ref\DataTransfer.dll

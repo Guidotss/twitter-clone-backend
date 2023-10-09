@@ -18,16 +18,11 @@ namespace DataAccess.Configuration
             builder.Property(comment => comment.Content).HasMaxLength(280).IsRequired();
             builder.Property(comment => comment.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(comment => comment.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
-
-            builder.HasOne(comment => comment.User)
-                    .WithMany(user => user.Comments)
-                    .HasForeignKey(comment => comment.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(comment => comment.UserId).IsRequired();
+            builder.Property(comment => comment.TweetId).IsRequired();
             
-            builder.HasOne(comment => comment.Tweet)
-                    .WithMany(tweet => tweet.Comments)
-                    .HasForeignKey(comment => comment.TweetId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            
+            
         }
     }
 }

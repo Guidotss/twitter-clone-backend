@@ -13,14 +13,18 @@ namespace DataAccess.Repository
         private readonly ApplicationDbContext _context;
         public IUserRepository User { get; private set; }
         public ITweetRepository Tweet { get; private set; }
+        public ICommentRepository Comments { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _context = db;
             User = new UserRepository(_context);
             Tweet = new TweetRepository(_context);
+            Comments = new CommentRepository(_context);
         }
 
         public void Dispose() => _context.Dispose();
+        
+
         public async Task Save() => await _context.SaveChangesAsync();
         
     }

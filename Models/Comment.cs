@@ -13,8 +13,6 @@ namespace Models
         public DateTime CreatedAt { get; set; } = default!;
         public DateTime UpdatedAt { get; set; } = default!;
         public Guid UserId { get; set; } = default!;
-        public User User { get; set; } = default!;
         public Guid TweetId { get; set; } = default!;
-        public Tweet Tweet { get; set; } = default!;        
     }
 }

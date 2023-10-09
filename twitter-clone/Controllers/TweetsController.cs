@@ -1,7 +1,9 @@
 ﻿using DataAccess.Repository.IRepository;
 using DataTransfer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Models;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,11 +22,12 @@ namespace twitter_clone.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllTweets()
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets");
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets,Comments"); 
                 var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
                 var userData = userFromDb.Select(u => new { id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl }); ;
@@ -55,6 +58,10 @@ namespace twitter_clone.Controllers
             try
             {
                 var userFromDb = await _unitOfWork.User.GetFirst(u => u.Id == userIdGuid, "Tweets");
+                if (userFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "User not found" });
+                }
 
                 return Ok(new { ok = true, tweets = userFromDb.Tweets.Reverse() });
             }
@@ -106,14 +113,48 @@ namespace twitter_clone.Controllers
 
         }
         [HttpPost]
-        [Route("{tweetId}")]
-        public async Task<IActionResult> createComment([FromBody] CommentDto commentData)
+        [Route("comments/{tweetId}")]
+        public async Task<IActionResult> CreateComment([FromBody] CommentDto commentData)
         {
+            if(commentData == null)
+            {
+                return BadRequest(new { ok = false, error = "Comment is required" });
+            }
+            string tweetId = Request.RouteValues["tweetId"].ToString(); 
+            bool isValid = Guid.TryParse(tweetId, out Guid tweetIdGuid);
+            if(!isValid)
+            {
+                return BadRequest(new { ok = false, error = "Invalid Id"}); 
+            }
             try
             {
-                return Ok(new { ok = true, comment = commentData });
+                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(tweetIdGuid);
+                var userFromDb = await _unitOfWork.User.GetAsync(commentData.UserId);
+
+                if (userFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "User not found" });
+                }
+                if (tweetFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "Tweet not found" }); 
+                }
+
+                var newComment = new Comment
+                {
+                    Content = commentData.Content,
+                    UserId = commentData.UserId, 
+                    TweetId = tweetIdGuid,
+                    
+                };
+                
+                await _unitOfWork.Comments.AddAsync(newComment);
+                await _unitOfWork.Save();
+                
+                return Ok(new { ok = true, comment = newComment});
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
             }

@@ -29,10 +29,6 @@ namespace DataAccess.Configuration
                     .HasForeignKey(retweet => retweet.TweetId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(tweet => tweet.Comments)
-                    .WithOne(comment => comment.Tweet)
-                    .HasForeignKey(comment => comment.TweetId)
-                    .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

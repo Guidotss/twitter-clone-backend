@@ -32,11 +32,6 @@ namespace DataAccess.Configuration
                     .HasForeignKey(follow => follow.FolloweeId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(user => user.Comments)
-                    .WithOne(comment => comment.User)
-                    .HasForeignKey(comment => comment.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasMany(user => user.Likes)
                     .WithOne(like => like.User)
                     .HasForeignKey(like => like.UserId)
