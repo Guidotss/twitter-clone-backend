@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj": {}
+    "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\DataAccess.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj"
+              "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj"
               }
             }
           }
@@ -58,17 +58,17 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -76,7 +76,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -95,18 +95,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
         "projectName": "DataTransfer",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -150,18 +150,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -204,17 +204,17 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -222,7 +222,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -241,18 +241,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
         "projectName": "twitter-clone",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\twitter-clone\\twitter-clone.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\twitter-clone\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\twitter-clone\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -269,14 +269,14 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataAccess\\DataAccess.csproj"
+              "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataAccess\\DataAccess.csproj"
               },
-              "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj"
+              "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj"
               },
-              "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\Models\\Models.csproj"
+              "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj"
               }
             }
           }
@@ -305,21 +305,21 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -331,7 +331,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -353,7 +353,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

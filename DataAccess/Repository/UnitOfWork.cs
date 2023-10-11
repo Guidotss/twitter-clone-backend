@@ -14,12 +14,14 @@ namespace DataAccess.Repository
         public IUserRepository User { get; private set; }
         public ITweetRepository Tweet { get; private set; }
         public ICommentRepository Comments { get; private set; }
+        public ILikeRepository Like { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _context = db;
             User = new UserRepository(_context);
             Tweet = new TweetRepository(_context);
             Comments = new CommentRepository(_context);
+            Like = new LikeRepository(_context);
         }
 
         public void Dispose() => _context.Dispose();

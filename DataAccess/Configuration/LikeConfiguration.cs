@@ -15,18 +15,8 @@ namespace DataAccess.Configuration
         {
             builder.Property(like => like.Id).IsRequired().HasDefaultValueSql("gen_random_uuid()");
             builder.Property(like => like.CreatedAt).IsRequired().HasDefaultValueSql("now()");
-            builder.Property(like => like.UserId);
-            builder.Property(like => like.TweetId);
-
-            builder.HasOne(like => like.User)
-                    .WithMany(user => user.Likes)
-                    .HasForeignKey(like => like.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(like => like.Tweet)
-                    .WithMany(tweet => tweet.Likes)
-                    .HasForeignKey(like => like.TweetId)
-                    .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(like => like.UserId).IsRequired();
+            builder.Property(like => like.TweetId).IsRequired();
 
         }
     }

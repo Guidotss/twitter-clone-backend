@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BttS+WKeQ1NayTnto/yDD8ixzbC5JyWPz8JueCiBZRi8L+ZVY6EblhLzDFWWvXqIVMx3M1MI3GbYKcmFElF1zg==",
+  "dgSpecHash": "pY9tSsWq5thupQwB7u8f+i6L08+DJhPOpABkJcoCEEWB8X5jzZapxKir+BauKhTzaOsC7KmzwXq/L3ZWBC+TjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
