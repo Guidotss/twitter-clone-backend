@@ -27,7 +27,7 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets,Comments");
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets,Comments,Likes");
                 var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
                 var userData = userFromDb.Select(u => new { id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl }); ;
@@ -187,7 +187,7 @@ namespace twitter_clone.Controllers
                 {
                     await _unitOfWork.Like.RemoveLike(likeData.UserId, tweetIdGuid);
                     await _unitOfWork.Save();
-                    return Ok(new { ok = true, message = "Like removed" });
+                    return Ok(new { ok = true, message = "Like removed", isLiked = false });
                 }
 
                 var newLike = new Like
@@ -199,7 +199,7 @@ namespace twitter_clone.Controllers
 
                 await _unitOfWork.Like.AddAsync(newLike);
                 await _unitOfWork.Save();
-                return Ok(new { ok = true, like = newLike });
+                return Ok(new { ok = true, like = newLike, isLiked = true });
             }
             catch (Exception ex)
             {
