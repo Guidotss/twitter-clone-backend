@@ -17,15 +17,7 @@ namespace DataAccess.Configuration
             builder.Property(tweet => tweet.Content).IsRequired().HasMaxLength(280);
             builder.Property(tweet => tweet.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(Tweet => Tweet.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
-            builder.Property(tweet => tweet.UserId).IsRequired();
-    
-
-            builder.HasMany(tweet => tweet.Retweets)
-                    .WithOne(retweet => retweet.Tweet)
-                    .HasForeignKey(retweet => retweet.TweetId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-
+            builder.Property(tweet => tweet.UserId).IsRequired();   
         }
     }
 }

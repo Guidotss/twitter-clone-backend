@@ -27,7 +27,7 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets,Comments,Likes");
+                var userFromDb = await _unitOfWork.User.GetAllAsync(null, null, "Tweets,Comments,Likes,Retweets");
                 var tweets = userFromDb.SelectMany(u => u.Tweets).Reverse();
 
                 var userData = userFromDb.Select(u => new { id = u.Id, name = u.Name, email = u.Email, imageUrl = u.ImageUrl }); ;
@@ -200,6 +200,46 @@ namespace twitter_clone.Controllers
                 await _unitOfWork.Like.AddAsync(newLike);
                 await _unitOfWork.Save();
                 return Ok(new { ok = true, like = newLike, isLiked = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ok = false, erorr = "Internal server error", message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("retweets/{tweet_id}")]
+        public async Task<IActionResult> CreateRetweet(RetweetDto retweetData) {             
+            string tweetId = Request.RouteValues["tweet_id"].ToString();
+        
+            bool isValid = Guid.TryParse(tweetId, out Guid tweetIdGuid);
+            if (!isValid)
+            {
+                return BadRequest(new { ok = false, error = "Invalid Id" });
+            }
+
+            try
+            {
+                var userFromDb = await _unitOfWork.User.GetAsync(retweetData.UserId);
+                if (userFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "User not found" });
+                }
+                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(tweetIdGuid);
+                if (tweetFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "Tweet not found" });
+                }
+
+                var newRetweet = new Retweet
+                {
+                    UserId = retweetData.UserId,
+                    TweetId = tweetIdGuid,
+                    CreatedAt = DateTime.UtcNow,
+                };
+
+                await _unitOfWork.Retweet.AddAsync(newRetweet);
+                await _unitOfWork.Save();
+                return Ok(new { ok = true, retweet = newRetweet });
             }
             catch (Exception ex)
             {

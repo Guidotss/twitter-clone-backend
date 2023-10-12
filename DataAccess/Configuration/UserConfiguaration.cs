@@ -31,12 +31,6 @@ namespace DataAccess.Configuration
                     .WithOne(follow => follow.Followee)
                     .HasForeignKey(follow => follow.FolloweeId)
                     .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasMany(user => user.Retweets)
-                    .WithOne(retweet => retweet.User)
-                    .HasForeignKey(retweet => retweet.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

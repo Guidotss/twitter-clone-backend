@@ -12,6 +12,7 @@ namespace DataAccess.Repository.IRepository
         public ITweetRepository Tweet { get; }
         public ICommentRepository Comments { get; } 
         public ILikeRepository Like { get; }
+        public IRetweetRepository Retweet { get; }
         public Task Save();
 
     }
