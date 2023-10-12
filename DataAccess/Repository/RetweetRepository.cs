@@ -42,5 +42,27 @@ namespace DataAccess.Repository
                 throw new Exception("Error while getting retweets"); 
             }
         }
+
+        public Task RemoveRetweet(Guid userId, Guid tweetId)
+        {
+            try
+            {
+                Retweet? retweet = _db.Retweets.FirstOrDefault(x => x.UserId == userId && x.TweetId == tweetId);
+                
+                if(retweet == null)
+                {
+                    throw new Exception("Retweet not found"); 
+                }
+
+                _db.Retweets.Remove(retweet);
+                _db.SaveChanges();
+                return Task.CompletedTask;
+                
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error while removing retweet"); 
+            }
+        }
     }
 }

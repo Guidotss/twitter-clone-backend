@@ -230,6 +230,13 @@ namespace twitter_clone.Controllers
                     return NotFound(new { ok = false, error = "Tweet not found" });
                 }
 
+                var isRetweeted = await _unitOfWork.Retweet.GetRetweetByUserAndTweet(retweetData.UserId, tweetIdGuid);
+                if(isRetweeted != null)
+                {
+                    await _unitOfWork.Retweet.RemoveRetweet(retweetData.UserId, tweetIdGuid);
+                    return Ok(new { ok = true, message = "Retweet removed", isRetweeted = false });
+                }
+
                 var newRetweet = new Retweet
                 {
                     UserId = retweetData.UserId,
@@ -239,7 +246,7 @@ namespace twitter_clone.Controllers
 
                 await _unitOfWork.Retweet.AddAsync(newRetweet);
                 await _unitOfWork.Save();
-                return Ok(new { ok = true, retweet = newRetweet });
+                return Ok(new { ok = true, retweet = newRetweet, isRetweeted = true });
             }
             catch (Exception ex)
             {

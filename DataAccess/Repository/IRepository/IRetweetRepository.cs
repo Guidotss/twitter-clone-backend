@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using DataAccess.Migrations;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace DataAccess.Repository.IRepository
     {
         Task<Retweet> GetRetweetByUserAndTweet(Guid userId, Guid tweetId);
         Task<IEnumerable<Retweet>> GetRetweetsByTweet(Guid tweetId);
+        Task RemoveRetweet(Guid userId, Guid tweetId);
     }
 }
