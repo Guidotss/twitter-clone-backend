@@ -77,7 +77,7 @@ namespace twitter_clone.Controllers
         {
             try
             {
-                var userFromDb = await _unitOfWork.User.GetAsync(tweet.userId);
+                var userFromDb = await _unitOfWork.User.GetAsync(tweet.UserId);
                 if (userFromDb == null)
                 {
                     return StatusCode(400, new { ok = false, error = "User not found" });
@@ -86,7 +86,7 @@ namespace twitter_clone.Controllers
                 var newTweet = new Tweet
                 {
                     Content = tweet.Content,
-                    UserId = tweet.userId,
+                    UserId = tweet.UserId,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     Likes = new List<Like>(),
