@@ -157,6 +157,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<string>("GifUrl")
+                        .HasMaxLength(280)
+                        .HasColumnType("character varying(280)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")

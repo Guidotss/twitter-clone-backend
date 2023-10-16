@@ -6,7 +6,6 @@ using Models;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace twitter_clone.Controllers
 {
@@ -89,6 +88,7 @@ namespace twitter_clone.Controllers
                     UserId = tweet.UserId,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
+                    GifUrl = tweet.GifUrl,
                     Likes = new List<Like>(),
                     Retweets = new List<Retweet>(),
                     Comments = new List<Comment>()
