@@ -18,8 +18,9 @@ namespace DataAccess.Configuration
             builder.Property(comment => comment.Content).HasMaxLength(280).IsRequired();
             builder.Property(comment => comment.CreatedAt).IsRequired().HasDefaultValueSql("now()");
             builder.Property(comment => comment.UpdatedAt).IsRequired().HasDefaultValueSql("now()");
-            builder.Property(comment => comment.UserId).IsRequired();
             builder.Property(comment => comment.TweetId).IsRequired();
+            builder.Property(comment => comment.UserId).IsRequired();
+            
             
             
             

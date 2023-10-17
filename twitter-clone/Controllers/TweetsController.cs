@@ -49,7 +49,7 @@ namespace twitter_clone.Controllers
 
         public async Task<IActionResult> GetTweetsById()
         {
-            string tweetId = Request.RouteValues["tweet_id"].ToString();
+            string tweetId = Request.RouteValues["tweet_id"]?.ToString()!;
             Guid parsedTweetId = checkUUID.IsValid(tweetId);
             if (parsedTweetId == Guid.Empty)
             {
@@ -57,12 +57,23 @@ namespace twitter_clone.Controllers
             }
             try
             {
-                var tweetFromDb = await _unitOfWork.Tweet.GetFirst(t => t.Id == parsedTweetId, "Retweets,Comments,Likes");
+                var tweetFromDb = await _unitOfWork.Tweet.GetFirst(t => t.Id == parsedTweetId, "Likes,Comments,Retweets"); 
                 if (tweetFromDb == null)
                 {
                     return NotFound(new { ok = false, error = "Tweet not found" });
                 }
-                return Ok(new { ok = true, tweet = tweetFromDb });
+                
+                var userFromDb = await _unitOfWork.User.GetAsync(tweetFromDb.UserId);
+                if (userFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "User not found" });
+                }
+
+
+                var tweet = new { id = tweetFromDb.Id, content = tweetFromDb.Content, gitUrl = tweetFromDb.GifUrl, imageUrl = tweetFromDb.ImageUrl, createdAt = tweetFromDb.CreatedAt };
+                var comments = await _unitOfWork.Comments.GetCommentUsers(tweetFromDb.Id); 
+
+                return Ok(new { comments }); 
             }
             catch (Exception ex)
             {
@@ -172,9 +183,8 @@ namespace twitter_clone.Controllers
                 var newComment = new Comment
                 {
                     Content = commentData.Content,
-                    UserId = commentData.UserId,
-                    TweetId = parsedTweetId,
-
+                    UserId = userFromDb.Id,
+                    TweetId = parsedTweetId, 
                 };
 
                 await _unitOfWork.Comments.AddAsync(newComment);

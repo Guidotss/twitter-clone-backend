@@ -13,7 +13,7 @@
         public ICollection<Tweet> Tweets { get; set; } = new List<Tweet>();
         public ICollection<Follow> Followers { get; set; } = new List<Follow>();
         public ICollection<Follow> Following { get; set; } = new List<Follow>();
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>(); 
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Retweet> Retweets { get; set; } = new List<Retweet>();
     }
