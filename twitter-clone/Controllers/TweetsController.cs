@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Models;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-
+using twitter_clone.Services;
 
 namespace twitter_clone.Controllers
 {
@@ -13,12 +13,13 @@ namespace twitter_clone.Controllers
     [ApiController]
     public class TweetsController : ControllerBase
     {
-
+        private readonly CheckUUID checkUUID;
         private readonly IUnitOfWork _unitOfWork;
 
         public TweetsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            checkUUID = new CheckUUID();
         }
 
         [HttpGet]
@@ -44,19 +45,46 @@ namespace twitter_clone.Controllers
         }
 
 
-        [HttpGet("{user_id}")]
-        public async Task<IActionResult> GetTweetsByUser()
-        {
-            string userId = Request.RouteValues["user_id"].ToString();
+        [HttpGet("{tweet_id}")]
 
-            bool isValid = Guid.TryParse(userId, out Guid userIdGuid);
-            if (!isValid)
+        public async Task<IActionResult> GetTweetsById()
+        {
+            string tweetId = Request.RouteValues["tweet_id"].ToString();
+            Guid parsedTweetId = checkUUID.IsValid(tweetId);
+            if (parsedTweetId == Guid.Empty)
             {
                 return BadRequest(new { ok = false, error = "Invalid id" });
             }
             try
             {
-                var userFromDb = await _unitOfWork.User.GetFirst(u => u.Id == userIdGuid, "Tweets");
+                var tweetFromDb = await _unitOfWork.Tweet.GetFirst(t => t.Id == parsedTweetId, "Retweets,Comments,Likes");
+                if (tweetFromDb == null)
+                {
+                    return NotFound(new { ok = false, error = "Tweet not found" });
+                }
+                return Ok(new { ok = true, tweet = tweetFromDb });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ok = false, error = "Internal server error", message = ex.Message });
+            }
+        }
+
+
+        [HttpGet]
+        [Route("users/{user_id}")]
+        public async Task<IActionResult> GetTweetsByUser()
+        {
+            string userId = Request.RouteValues["user_id"]?.ToString()!;
+
+            Guid parsedUserId = checkUUID.IsValid(userId);
+            if (parsedUserId == Guid.Empty)
+            {
+                return BadRequest(new { ok = false, error = "Invalid id" });
+            }
+            try
+            {
+                var userFromDb = await _unitOfWork.User.GetFirst(u => u.Id == parsedUserId, "Tweets");
                 if (userFromDb == null)
                 {
                     return NotFound(new { ok = false, error = "User not found" });
@@ -122,14 +150,14 @@ namespace twitter_clone.Controllers
                 return BadRequest(new { ok = false, error = "Comment is required" });
             }
             string tweetId = Request.RouteValues["tweet_id"].ToString();
-            bool isValid = Guid.TryParse(tweetId, out Guid tweetIdGuid);
-            if (!isValid)
+            Guid parsedTweetId = checkUUID.IsValid(tweetId);
+            if (parsedTweetId == Guid.Empty)
             {
                 return BadRequest(new { ok = false, error = "Invalid Id" });
             }
             try
             {
-                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(tweetIdGuid);
+                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(parsedTweetId);
                 var userFromDb = await _unitOfWork.User.GetAsync(commentData.UserId);
 
                 if (userFromDb == null)
@@ -145,7 +173,7 @@ namespace twitter_clone.Controllers
                 {
                     Content = commentData.Content,
                     UserId = commentData.UserId,
-                    TweetId = tweetIdGuid,
+                    TweetId = parsedTweetId,
 
                 };
 
@@ -166,8 +194,8 @@ namespace twitter_clone.Controllers
         {
             string tweetId = Request.RouteValues["tweet_id"].ToString();
 
-            bool isValid = Guid.TryParse(tweetId, out Guid tweetIdGuid);
-            if (!isValid)
+            Guid parsedTweetId = checkUUID.IsValid(tweetId);
+            if (parsedTweetId == Guid.Empty)
             {
                 return BadRequest(new { ok = false, error = "Invalid Id" });
             }
@@ -178,15 +206,15 @@ namespace twitter_clone.Controllers
                 {
                     return NotFound(new { ok = false, error = "User not found" });
                 }
-                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(tweetIdGuid);
+                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(parsedTweetId);
                 if (tweetFromDb == null)
                 {
                     return NotFound(new { ok = false, error = "Tweet not found" });
                 }
-                var isLiked = await _unitOfWork.Like.IsLiked(likeData.UserId, tweetIdGuid);
+                var isLiked = await _unitOfWork.Like.IsLiked(likeData.UserId, parsedTweetId);
                 if (isLiked)
                 {
-                    await _unitOfWork.Like.RemoveLike(likeData.UserId, tweetIdGuid);
+                    await _unitOfWork.Like.RemoveLike(likeData.UserId, parsedTweetId);
                     await _unitOfWork.Save();
                     return Ok(new { ok = true, message = "Like removed", isLiked = false });
                 }
@@ -194,7 +222,7 @@ namespace twitter_clone.Controllers
                 var newLike = new Like
                 {
                     UserId = likeData.UserId,
-                    TweetId = tweetIdGuid,
+                    TweetId = parsedTweetId,
                     CreatedAt = DateTime.UtcNow,
                 };
 
@@ -211,9 +239,9 @@ namespace twitter_clone.Controllers
         [Route("retweets/{tweet_id}")]
         public async Task<IActionResult> CreateRetweet(RetweetDto retweetData) {             
             string tweetId = Request.RouteValues["tweet_id"].ToString();
-        
-            bool isValid = Guid.TryParse(tweetId, out Guid tweetIdGuid);
-            if (!isValid)
+
+            Guid parsedTweetId = checkUUID.IsValid(tweetId);
+            if (parsedTweetId == Guid.Empty)
             {
                 return BadRequest(new { ok = false, error = "Invalid Id" });
             }
@@ -225,23 +253,23 @@ namespace twitter_clone.Controllers
                 {
                     return NotFound(new { ok = false, error = "User not found" });
                 }
-                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(tweetIdGuid);
+                var tweetFromDb = await _unitOfWork.Tweet.GetAsync(parsedTweetId);
                 if (tweetFromDb == null)
                 {
                     return NotFound(new { ok = false, error = "Tweet not found" });
                 }
 
-                var isRetweeted = await _unitOfWork.Retweet.GetRetweetByUserAndTweet(retweetData.UserId, tweetIdGuid);
+                var isRetweeted = await _unitOfWork.Retweet.GetRetweetByUserAndTweet(retweetData.UserId, parsedTweetId);
                 if(isRetweeted != null)
                 {
-                    await _unitOfWork.Retweet.RemoveRetweet(retweetData.UserId, tweetIdGuid);
+                    await _unitOfWork.Retweet.RemoveRetweet(retweetData.UserId, parsedTweetId);
                     return Ok(new { ok = true, message = "Retweet removed", isRetweeted = false });
                 }
 
                 var newRetweet = new Retweet
                 {
                     UserId = retweetData.UserId,
-                    TweetId = tweetIdGuid,
+                    TweetId = parsedTweetId,
                     CreatedAt = DateTime.UtcNow,
                 };
 
