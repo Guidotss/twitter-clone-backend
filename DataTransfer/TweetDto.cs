@@ -11,6 +11,7 @@ namespace DataTransfer
     {
         public string Content { get; set; } = default!;
         public string? GifUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public IFormFile? Image { get; set; } = default; 
         public Guid UserId { get; set; } = default!;
     }

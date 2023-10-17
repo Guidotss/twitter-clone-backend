@@ -89,6 +89,7 @@ namespace twitter_clone.Controllers
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     GifUrl = tweet.GifUrl,
+                    ImageUrl = tweet.ImageUrl,
                     Likes = new List<Like>(),
                     Retweets = new List<Retweet>(),
                     Comments = new List<Comment>()
