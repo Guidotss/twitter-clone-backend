@@ -9,6 +9,7 @@
       "DataAccess/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
+          "DataTransfer": "1.0.0",
           "EntityFramework": "6.4.4",
           "Microsoft.AspNet.Identity.EntityFramework": "2.2.4",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.12",
@@ -539,6 +540,15 @@
           }
         }
       },
+      "DataTransfer/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http": "2.2.2",
+          "Models": "1.0.0"
+        },
+        "runtime": {
+          "DataTransfer.dll": {}
+        }
+      },
       "Models/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
@@ -974,6 +984,11 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "DataTransfer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Models/1.0.0": {
       "type": "project",

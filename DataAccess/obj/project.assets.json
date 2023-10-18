@@ -1004,6 +1004,20 @@
           }
         }
       },
+      "DataTransfer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http": "2.2.2",
+          "Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DataTransfer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataTransfer.dll": {}
+        }
+      },
       "Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -2688,6 +2702,11 @@
         "version.txt"
       ]
     },
+    "DataTransfer/1.0.0": {
+      "type": "project",
+      "path": "../DataTransfer/DataTransfer.csproj",
+      "msbuildProject": "../DataTransfer/DataTransfer.csproj"
+    },
     "Models/1.0.0": {
       "type": "project",
       "path": "../Models/Models.csproj",
@@ -2697,6 +2716,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "BCrypt.Net-Next >= 4.0.3",
+      "DataTransfer >= 1.0.0",
       "EntityFramework >= 6.4.4",
       "Microsoft.AspNet.Identity.EntityFramework >= 2.2.4",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.12",
@@ -2735,6 +2755,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\DataTransfer\\DataTransfer.csproj"
+            },
             "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj": {
               "projectPath": "C:\\Users\\Administrator\\Desktop\\twitter\\twitter-clone-backend\\Models\\Models.csproj"
             }

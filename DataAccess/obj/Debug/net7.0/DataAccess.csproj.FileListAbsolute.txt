@@ -83,3 +83,5 @@ C:\Users\guido\OneDrive\Escritorio\twitter\twitter-clone-backend\DataAccess\obj\
 C:\Users\guido\OneDrive\Escritorio\twitter\twitter-clone-backend\DataAccess\obj\Debug\net7.0\DataAccess.pdb
 C:\Users\guido\OneDrive\Escritorio\twitter\twitter-clone-backend\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
 C:\Users\guido\OneDrive\Escritorio\twitter\twitter-clone-backend\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
+C:\Users\Administrator\Desktop\twitter\twitter-clone-backend\DataAccess\bin\Debug\net7.0\DataTransfer.dll
+C:\Users\Administrator\Desktop\twitter\twitter-clone-backend\DataAccess\bin\Debug\net7.0\DataTransfer.pdb

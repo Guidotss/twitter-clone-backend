@@ -1115,6 +1115,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
+          "DataTransfer": "1.0.0",
           "EntityFramework": "6.4.4",
           "Microsoft.AspNet.Identity.EntityFramework": "2.2.4",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.12",
@@ -1135,7 +1136,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Http": "2.2.2"
+          "Microsoft.AspNetCore.Http": "2.2.2",
+          "Models": "1.0.0"
         },
         "compile": {
           "bin/placeholder/DataTransfer.dll": {}

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
 using DataAccess.Repository.IRepository;
+using DataTransfer;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -18,19 +19,19 @@ namespace DataAccess.Repository
             _db = db; 
         }
 
-        public Task<List<User>>GetCommentUsers(Guid tweetId)
+        public Task<List<UserCommentDto>>GetCommentUsers(Guid tweetId)
         {
            
             var comments = _db.Comments.Where(c => c.TweetId == tweetId).AsEnumerable();
             //Evita traer la infomacion del password
 
-            var users = _db.User.Where(u => comments.Any(c => c.UserId == u.Id)).AsEnumerable().Select(u => new User
-            {   
-                Id = u.Id,
-                Name = u.Name,
-                Email = u.Email, 
-                ImageUrl = u.ImageUrl,
-                Comments = u.Comments,
+            var users = _db.User.Where(u => comments.Any(c => c.UserId == u.Id)).AsEnumerable().Select(u => new UserCommentDto
+            {
+               Name = u.Name,
+               Email = u.Email,
+               ImageUrl = u.ImageUrl,
+               Comments = u.Comments, 
+               Id = u.Id
             }); 
             
             

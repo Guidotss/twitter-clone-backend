@@ -69,11 +69,13 @@ namespace twitter_clone.Controllers
                     return NotFound(new { ok = false, error = "User not found" });
                 }
 
+                var userData = new { id = userFromDb.Id, name = userFromDb.Name, email = userFromDb.Email, imageUrl = userFromDb.ImageUrl };
+                var tweet = new { id = tweetFromDb.Id, content = tweetFromDb.Content, gitUrl = tweetFromDb.GifUrl, imageUrl = tweetFromDb.ImageUrl, createdAt = tweetFromDb.CreatedAt, user = userData, retweets = tweetFromDb.Retweets, likes = tweetFromDb.Likes };
+                var commentsData = await _unitOfWork.Comments.GetCommentUsers(tweetFromDb.Id);
+                
 
-                var tweet = new { id = tweetFromDb.Id, content = tweetFromDb.Content, gitUrl = tweetFromDb.GifUrl, imageUrl = tweetFromDb.ImageUrl, createdAt = tweetFromDb.CreatedAt };
-                var comments = await _unitOfWork.Comments.GetCommentUsers(tweetFromDb.Id); 
-
-                return Ok(new { comments }); 
+                return Ok(new {ok = true, tweet,commentsData }); 
+                
             }
             catch (Exception ex)
             {
