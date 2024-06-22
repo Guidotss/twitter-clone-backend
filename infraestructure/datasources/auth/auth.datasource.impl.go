@@ -3,6 +3,7 @@ package auth
 import (
 	"twitter-clone-backend/domain/datasources/auth"
 	domain "twitter-clone-backend/domain/dtos/auth"
+	"twitter-clone-backend/domain/entities"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -17,18 +18,18 @@ func NewAuthDataSourceImpl(client *mongo.Client) auth.AuthDataSource {
 	}
 }
 
-func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (string, error) {
-	return "", nil
+func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (entities.User, error) {
+	return entities.User{}, nil
 }
 
-func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (string, error) {
-	return "", nil
+func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities.User, error) {
+	return entities.User{}, nil
 }
 
-func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (string, error) {
-	return "", nil
+func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (entities.User, error) {
+	return entities.User{}, nil
 }
 
-func (ds *AuthDataSourceImpl) GetUserByID(id string) (string, error) {
-	return "", nil
+func (ds *AuthDataSourceImpl) GetUserByID(id string) (entities.User, error) {
+	return entities.User{}, nil
 }

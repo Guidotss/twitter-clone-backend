@@ -2,11 +2,12 @@ package auth
 
 import (
 	"twitter-clone-backend/domain/dtos/auth"
+	"twitter-clone-backend/domain/entities"
 )
 
 type AuthDataSource interface {
-	Login(loginDTO auth.LoginDTO) (string, error)
-	Register(registerDTO auth.RegisterDTO) (string, error)
-	GetUserByEmail(email string) (string, error)
-	GetUserByID(id string) (string, error)
+	Login(loginDTO auth.LoginDTO) (entities.User, error)
+	Register(registerDTO auth.RegisterDTO) (entities.User, error)
+	GetUserByEmail(email string) (entities.User, error)
+	GetUserByID(id string) (entities.User, error)
 }
