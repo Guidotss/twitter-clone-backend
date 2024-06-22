@@ -1,0 +1,21 @@
+{
+  "version": "1",
+  "name": "Twitter-Clone",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ],
+  "proxy": {
+    "enabled": "global",
+    "protocol": "http",
+    "hostname": "localhost",
+    "port": 4000,
+    "auth": {
+      "enabled": false,
+      "username": "",
+      "password": ""
+    },
+    "bypassProxy": ""
+  }
+}
