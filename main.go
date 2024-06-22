@@ -1,8 +1,8 @@
 package main
 
 import (
-	"drive-backend/config"
-	"drive-backend/presentation/routes"
+	"twitter-clone-backend/config"
+	"twitter-clone-backend/presentation/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"

@@ -1,7 +1,7 @@
 package errors
 
 import (
-	"drive-backend/domain/errors/exceptions"
+	"twitter-clone-backend/domain/errors/exceptions"
 
 	"github.com/gofiber/fiber/v2"
 )
