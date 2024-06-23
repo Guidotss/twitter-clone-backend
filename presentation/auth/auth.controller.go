@@ -3,7 +3,6 @@ package auth
 import (
 	dtos "twitter-clone-backend/domain/dtos/auth"
 	"twitter-clone-backend/domain/errors"
-	"twitter-clone-backend/domain/errors/exceptions"
 	"twitter-clone-backend/domain/repositories/auth"
 	useCases "twitter-clone-backend/domain/use-cases/auth"
 
@@ -49,27 +48,13 @@ func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 	err := ctx.BodyParser(&registerDTO)
 	errors.PanicLogging(err)
 
-	err = controller.validator.Struct(registerDTO)
-	if err != nil {
-		validationErrors := make(map[string]string)
-		for _, err := range err.(validator.ValidationErrors) {
-			validationErrors[err.Field()] = "Invalid " + err.Field()
-		}
-		return exceptions.BadRequest{
-			Errors: validationErrors,
-		}
-	}
+	response, err := useCases.NewRegisterUseCase(controller.repository).Execute(registerDTO)
 
-	newUser, err := controller.repository.Register(registerDTO)
 	if err != nil {
 		return err
 	}
 
-	return ctx.JSON(fiber.Map{
-		"ok":      true,
-		"message": "register",
-		"data":    newUser,
-	})
+	return ctx.JSON(response)
 }
 
 func (controller *AuthControllerImpl) RefreshToken(ctx *fiber.Ctx) error {

@@ -14,16 +14,12 @@ type LoginUseCaseImpl struct {
 	validator  *validator.Validate
 	jwtAdapter jwt.JwtAdapter
 }
-type User struct {
-	Name   string `json:"name"`
-	Email  string `json:"email"`
-	Avatar string `json:"avatar"`
-}
+
 type LoginUseCaseResponse struct {
 	Ok      bool
 	Message string
 	Token   string
-	User    User
+	User    dtos.UserResponse
 }
 
 type LoginUseCase interface {
@@ -62,7 +58,8 @@ func (useCase *LoginUseCaseImpl) Execute(loginDTO dtos.LoginDTO) (LoginUseCaseRe
 		Ok:      true,
 		Message: "login",
 		Token:   token,
-		User: User{
+		User: dtos.UserResponse{
+			ID:     user.ID.Hex(),
 			Name:   user.Name,
 			Email:  user.Email,
 			Avatar: user.Avatar,
