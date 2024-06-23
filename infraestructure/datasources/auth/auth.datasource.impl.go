@@ -104,8 +104,6 @@ func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (entities.User, error
 	userDecoded := entities.User{}
 	checkUser.Decode(&userDecoded)
 
-	fmt.Println("DECODED", userDecoded)
-
 	return entities.User{
 		ID:       userDecoded.ID,
 		Email:    userDecoded.Email,
