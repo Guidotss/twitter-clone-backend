@@ -6,6 +6,14 @@ meta {
 
 post {
   url: {{url}}/auth/register
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Guido",
+    "email": "guidoolguin2@gmail.com",
+    "Password": "123456"
+  }
 }
