@@ -13,6 +13,7 @@ type AuthControllerImpl struct {
 type AuthController interface {
 	Login(ctx *fiber.Ctx) error
 	Register(ctx *fiber.Ctx) error
+	RefreshToken(ctx *fiber.Ctx) error
 }
 
 func NewAuthController(repository auth.AuthRepository) *AuthControllerImpl {
@@ -30,5 +31,11 @@ func (controller *AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 	return ctx.JSON(fiber.Map{
 		"message": "register",
+	})
+}
+
+func (controller *AuthControllerImpl) RefreshToken(ctx *fiber.Ctx) error {
+	return ctx.JSON(fiber.Map{
+		"message": "refresh token",
 	})
 }
