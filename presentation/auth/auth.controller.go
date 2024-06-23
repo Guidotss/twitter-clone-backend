@@ -5,6 +5,7 @@ import (
 	"twitter-clone-backend/domain/errors"
 	"twitter-clone-backend/domain/errors/exceptions"
 	"twitter-clone-backend/domain/repositories/auth"
+	useCases "twitter-clone-backend/domain/use-cases/auth"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -32,28 +33,13 @@ func (controller *AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 	var loginDTO dtos.LoginDTO
 	err := ctx.BodyParser(&loginDTO)
 	errors.PanicLogging(err)
+	response, err := useCases.NewLoginUseCase(controller.repository).Execute(loginDTO)
 
-	err = controller.validator.Struct(loginDTO)
-	if err != nil {
-		validatorErros := make(map[string]string)
-		for _, err := range err.(validator.ValidationErrors) {
-			validatorErros[err.Field()] = "Invalid " + err.Field()
-		}
-		return exceptions.BadRequest{
-			Errors: validatorErros,
-		}
-	}
-
-	user, err := controller.repository.Login(loginDTO)
 	if err != nil {
 		return err
 	}
 
-	return ctx.JSON(fiber.Map{
-		"ok":      true,
-		"message": "login",
-		"data":    user,
-	})
+	return ctx.JSON(response)
 
 }
 
