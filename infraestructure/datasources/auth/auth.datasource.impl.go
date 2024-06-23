@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"time"
 	"twitter-clone-backend/domain/datasources/auth"
 	domain "twitter-clone-backend/domain/dtos/auth"
@@ -24,7 +25,33 @@ func NewAuthDataSourceImpl(client *mongo.Client) auth.AuthDataSource {
 }
 
 func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (entities.User, error) {
-	return entities.User{}, nil
+	checkUser, err := ds.GetUserByEmail(loginDTO.Email)
+	if err != nil {
+		return entities.User{}, err
+	}
+	if checkUser.Email == "" {
+		return entities.User{}, exceptions.UnauthorizeError{
+			Message: "Email or password is incorrect",
+		}
+	}
+
+	bcrypt := bcrypt.NewBcryptAdapter()
+	err = bcrypt.ComparePassword(loginDTO.Password, checkUser.Password)
+
+	if err != nil {
+		return entities.User{}, exceptions.UnauthorizeError{
+			Message: "Email or password is incorrect",
+		}
+	}
+
+	fmt.Println(checkUser)
+
+	return entities.User{
+		ID:       checkUser.ID,
+		Email:    checkUser.Email,
+		Password: checkUser.Password,
+		Name:     checkUser.Name,
+	}, nil
 }
 
 func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities.User, error) {
@@ -49,13 +76,18 @@ func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities
 		return entities.User{}, err
 	}
 
-	result, err := ds.client.InsertOne(ctx, registerDTO)
+	result, err := ds.client.InsertOne(ctx, domain.RegisterDTO{
+		Email:    registerDTO.Email,
+		Password: hashedPassword,
+		Name:     registerDTO.Name,
+	})
+
 	if err != nil {
 		return entities.User{}, err
 	}
 
 	return entities.User{
-		ID:       result.InsertedID.(primitive.ObjectID).Hex(),
+		ID:       result.InsertedID.(primitive.ObjectID),
 		Email:    registerDTO.Email,
 		Password: hashedPassword,
 		Name:     registerDTO.Name,
@@ -71,6 +103,8 @@ func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (entities.User, error
 
 	userDecoded := entities.User{}
 	checkUser.Decode(&userDecoded)
+
+	fmt.Println("DECODED", userDecoded)
 
 	return entities.User{
 		ID:       userDecoded.ID,

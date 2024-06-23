@@ -29,9 +29,32 @@ func NewAuthController(repository auth.AuthRepository) *AuthControllerImpl {
 }
 
 func (controller *AuthControllerImpl) Login(ctx *fiber.Ctx) error {
+	var loginDTO dtos.LoginDTO
+	err := ctx.BodyParser(&loginDTO)
+	errors.PanicLogging(err)
+
+	err = controller.validator.Struct(loginDTO)
+	if err != nil {
+		validatorErros := make(map[string]string)
+		for _, err := range err.(validator.ValidationErrors) {
+			validatorErros[err.Field()] = "Invalid " + err.Field()
+		}
+		return exceptions.BadRequest{
+			Errors: validatorErros,
+		}
+	}
+
+	user, err := controller.repository.Login(loginDTO)
+	if err != nil {
+		return err
+	}
+
 	return ctx.JSON(fiber.Map{
+		"ok":      true,
 		"message": "login",
+		"data":    user,
 	})
+
 }
 
 func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
@@ -57,6 +80,7 @@ func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.JSON(fiber.Map{
+		"ok":      true,
 		"message": "register",
 		"data":    newUser,
 	})
