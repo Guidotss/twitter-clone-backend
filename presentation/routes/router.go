@@ -10,6 +10,15 @@ import (
 )
 
 func AppRoutes(router fiber.Router, db *mongo.Client) {
+
 	health.HealthRoute(router)
-	auth.AuthRoutes(router, adapters.AuthAdapter(db))
+	auth.AuthRoutes(router.Group("/auth"), adapters.AuthAdapter(db))
+
+	router.Use(func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"ok":      false,
+			"message": "Resource not found",
+		})
+	})
+
 }
