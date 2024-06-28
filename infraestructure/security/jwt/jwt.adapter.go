@@ -15,6 +15,7 @@ type JwtAdapterImpl struct {
 type JwtAdapter interface {
 	GenerateToken(id primitive.ObjectID) string
 	ValidateToken(token string) bool
+	GetClaims(token string) (jwt.MapClaims, error)
 }
 
 func NewJwtAdapter() *JwtAdapterImpl {
@@ -49,4 +50,19 @@ func (adapter *JwtAdapterImpl) ValidateToken(token string) bool {
 	}
 
 	return true
+}
+
+func (adapter *JwtAdapterImpl) GetClaims(token string) (jwt.MapClaims, error) {
+	claims := jwt.MapClaims{
+		"id": primitive.ObjectID{},
+	}
+	_, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(adapter.secretKey), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return claims, nil
 }

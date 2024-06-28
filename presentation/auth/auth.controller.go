@@ -58,7 +58,14 @@ func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 }
 
 func (controller *AuthControllerImpl) RefreshToken(ctx *fiber.Ctx) error {
-	return ctx.JSON(fiber.Map{
-		"message": "refresh token",
-	})
+	authHeader := ctx.Get("Authorization")
+	token := authHeader[7:]
+
+	response, err := useCases.NewRefreshTokenUseCase(controller.repository).Execute(token)
+
+	if err != nil {
+		return err
+	}
+
+	return ctx.JSON(response)
 }

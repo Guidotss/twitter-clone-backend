@@ -113,5 +113,23 @@ func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (entities.User, error
 }
 
 func (ds *AuthDataSourceImpl) GetUserByID(id string) (entities.User, error) {
-	return entities.User{}, nil
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return entities.User{}, err
+	}
+
+	user := ds.client.FindOne(ctx, map[string]primitive.ObjectID{"_id": objectID})
+
+	userDecoded := entities.User{}
+	user.Decode(&userDecoded)
+
+	return entities.User{
+		ID:       userDecoded.ID,
+		Email:    userDecoded.Email,
+		Password: userDecoded.Password,
+		Name:     userDecoded.Name,
+	}, nil
 }
