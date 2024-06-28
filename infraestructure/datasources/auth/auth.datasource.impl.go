@@ -2,7 +2,6 @@ package auth
 
 import (
 	"context"
-	"fmt"
 	"time"
 	"twitter-clone-backend/domain/datasources/auth"
 	domain "twitter-clone-backend/domain/dtos/auth"
@@ -44,13 +43,13 @@ func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (entities.User, er
 		}
 	}
 
-	fmt.Println(checkUser)
-
 	return entities.User{
-		ID:       checkUser.ID,
-		Email:    checkUser.Email,
-		Password: checkUser.Password,
-		Name:     checkUser.Name,
+		ID:        checkUser.ID,
+		Email:     checkUser.Email,
+		Password:  checkUser.Password,
+		Profile:   checkUser.Profile,
+		Followers: checkUser.Followers,
+		Following: checkUser.Following,
 	}, nil
 }
 
@@ -90,7 +89,11 @@ func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities
 		ID:       result.InsertedID.(primitive.ObjectID),
 		Email:    registerDTO.Email,
 		Password: hashedPassword,
-		Name:     registerDTO.Name,
+		Profile: entities.Profile{
+			Name: registerDTO.Name,
+		},
+		Followers: []primitive.ObjectID{},
+		Following: []primitive.ObjectID{},
 	}, nil
 
 }
@@ -108,7 +111,7 @@ func (ds *AuthDataSourceImpl) GetUserByEmail(email string) (entities.User, error
 		ID:       userDecoded.ID,
 		Email:    userDecoded.Email,
 		Password: userDecoded.Password,
-		Name:     userDecoded.Name,
+		Profile:  userDecoded.Profile,
 	}, nil
 }
 
@@ -127,9 +130,11 @@ func (ds *AuthDataSourceImpl) GetUserByID(id string) (entities.User, error) {
 	user.Decode(&userDecoded)
 
 	return entities.User{
-		ID:       userDecoded.ID,
-		Email:    userDecoded.Email,
-		Password: userDecoded.Password,
-		Name:     userDecoded.Name,
+		ID:        userDecoded.ID,
+		Email:     userDecoded.Email,
+		Password:  userDecoded.Password,
+		Profile:   userDecoded.Profile,
+		Followers: userDecoded.Followers,
+		Following: userDecoded.Following,
 	}, nil
 }

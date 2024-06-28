@@ -58,10 +58,17 @@ func (useCase *RefreshTokenUseCaseImpl) Execute(token string) (RefreshTokenUseCa
 		Token:   newToken,
 		Message: "Token refreshed successfully",
 		User: dtos.UserResponse{
-			ID:     user.ID.Hex(),
-			Name:   user.Name,
-			Email:  user.Email,
-			Avatar: user.Avatar,
+			ID:    user.ID.Hex(),
+			Email: user.Email,
+			Profile: dtos.ProfileResponseDTO{
+				Name:     user.Profile.Name,
+				Bio:      user.Profile.Bio,
+				Location: user.Profile.Location,
+				Website:  user.Profile.Website,
+				Avatar:   user.Profile.Avatar,
+			},
+			Followers: user.Followers,
+			Following: user.Following,
 		},
 	}, nil
 }
