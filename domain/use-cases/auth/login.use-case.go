@@ -59,7 +59,7 @@ func (useCase *LoginUseCaseImpl) Execute(loginDTO dtos.LoginDTO) (LoginUseCaseRe
 		Message: "User logged in successfully",
 		Token:   token,
 		User: dtos.UserResponse{
-			ID:    user.ID.Hex(),
+			ID:    user.ID,
 			Email: user.Email,
 			Profile: dtos.ProfileDTO{
 				Name:     user.Profile.Name,

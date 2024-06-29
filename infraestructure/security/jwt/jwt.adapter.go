@@ -13,7 +13,7 @@ type JwtAdapterImpl struct {
 }
 
 type JwtAdapter interface {
-	GenerateToken(id primitive.ObjectID) string
+	GenerateToken(id string) string
 	ValidateToken(token string) bool
 	GetClaims(token string) (jwt.MapClaims, error)
 }
@@ -24,7 +24,7 @@ func NewJwtAdapter() *JwtAdapterImpl {
 	}
 }
 
-func (adapter *JwtAdapterImpl) GenerateToken(id primitive.ObjectID) string {
+func (adapter *JwtAdapterImpl) GenerateToken(id string) string {
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"authorized": true,
 		"id":         id,

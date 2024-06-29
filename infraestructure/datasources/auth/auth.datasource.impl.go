@@ -90,14 +90,14 @@ func (ds *AuthDataSourceImpl) Register(registerDTO dtos.RegisterDTO) (entities.U
 	}
 
 	return entities.User{
-		ID:       result.InsertedID.(primitive.ObjectID),
+		ID:       result.InsertedID.(primitive.ObjectID).Hex(),
 		Email:    registerDTO.Email,
 		Password: hashedPassword,
 		Profile: dtos.ProfileDTO{
 			Name: registerDTO.Name,
 		},
-		Followers: []primitive.ObjectID{},
-		Following: []primitive.ObjectID{},
+		Followers: []string{},
+		Following: []string{},
 	}, nil
 
 }

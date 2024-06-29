@@ -59,7 +59,7 @@ func (useCase *RegisterUseCaseImpl) Execute(registerDTO dtos.RegisterDTO) (Regis
 		Message: "User registered successfully",
 		Token:   token,
 		User: dtos.UserResponse{
-			ID:    user.ID.Hex(),
+			ID:    user.ID,
 			Email: user.Email,
 			Profile: dtos.ProfileDTO{
 				Name:     user.Profile.Name,
