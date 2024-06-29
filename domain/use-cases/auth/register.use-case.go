@@ -61,7 +61,7 @@ func (useCase *RegisterUseCaseImpl) Execute(registerDTO dtos.RegisterDTO) (Regis
 		User: dtos.UserResponse{
 			ID:    user.ID.Hex(),
 			Email: user.Email,
-			Profile: dtos.ProfileResponseDTO{
+			Profile: dtos.ProfileDTO{
 				Name:     user.Profile.Name,
 				Bio:      user.Profile.Bio,
 				Location: user.Profile.Location,

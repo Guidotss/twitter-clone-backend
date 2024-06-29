@@ -60,7 +60,7 @@ func (useCase *RefreshTokenUseCaseImpl) Execute(token string) (RefreshTokenUseCa
 		User: dtos.UserResponse{
 			ID:    user.ID.Hex(),
 			Email: user.Email,
-			Profile: dtos.ProfileResponseDTO{
+			Profile: dtos.ProfileDTO{
 				Name:     user.Profile.Name,
 				Bio:      user.Profile.Bio,
 				Location: user.Profile.Location,

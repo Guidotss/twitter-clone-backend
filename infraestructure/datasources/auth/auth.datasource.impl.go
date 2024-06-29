@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 	"twitter-clone-backend/domain/datasources/auth"
-	domain "twitter-clone-backend/domain/dtos/auth"
+	dtos "twitter-clone-backend/domain/dtos/auth"
 	"twitter-clone-backend/domain/entities"
 	"twitter-clone-backend/domain/errors/exceptions"
 	"twitter-clone-backend/infraestructure/security/bcrypt"
@@ -23,7 +23,7 @@ func NewAuthDataSourceImpl(client *mongo.Client) auth.AuthDataSource {
 	}
 }
 
-func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (entities.User, error) {
+func (ds *AuthDataSourceImpl) Login(loginDTO dtos.LoginDTO) (entities.User, error) {
 	checkUser, err := ds.GetUserByEmail(loginDTO.Email)
 	if err != nil {
 		return entities.User{}, err
@@ -53,7 +53,7 @@ func (ds *AuthDataSourceImpl) Login(loginDTO domain.LoginDTO) (entities.User, er
 	}, nil
 }
 
-func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities.User, error) {
+func (ds *AuthDataSourceImpl) Register(registerDTO dtos.RegisterDTO) (entities.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	checkUser, err := ds.GetUserByEmail(registerDTO.Email)
@@ -75,10 +75,14 @@ func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities
 		return entities.User{}, err
 	}
 
-	result, err := ds.client.InsertOne(ctx, domain.RegisterDTO{
+	result, err := ds.client.InsertOne(ctx, dtos.CreateUserDTO{
 		Email:    registerDTO.Email,
 		Password: hashedPassword,
-		Name:     registerDTO.Name,
+		Profile: dtos.ProfileDTO{
+			Name: registerDTO.Name,
+		},
+		Followers: []primitive.ObjectID{},
+		Following: []primitive.ObjectID{},
 	})
 
 	if err != nil {
@@ -89,7 +93,7 @@ func (ds *AuthDataSourceImpl) Register(registerDTO domain.RegisterDTO) (entities
 		ID:       result.InsertedID.(primitive.ObjectID),
 		Email:    registerDTO.Email,
 		Password: hashedPassword,
-		Profile: entities.Profile{
+		Profile: dtos.ProfileDTO{
 			Name: registerDTO.Name,
 		},
 		Followers: []primitive.ObjectID{},
