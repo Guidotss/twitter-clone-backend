@@ -38,7 +38,7 @@ func (controller *AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.JSON(response)
+	return ctx.Status(fiber.StatusOK).JSON(response)
 
 }
 
@@ -54,7 +54,7 @@ func (controller *AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.JSON(response)
+	return ctx.Status(fiber.StatusCreated).JSON(response)
 }
 
 func (controller *AuthControllerImpl) RefreshToken(ctx *fiber.Ctx) error {
@@ -67,5 +67,5 @@ func (controller *AuthControllerImpl) RefreshToken(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.JSON(response)
+	return ctx.Status(fiber.StatusOK).JSON(response)
 }
