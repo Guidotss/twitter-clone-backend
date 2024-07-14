@@ -13,7 +13,7 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 			"Ok":      false,
 			"Code":    fiber.StatusUnauthorized,
 			"Message": "Invalid credentials",
-			"Data":    err.Error(),
+			"Error":   err.Error(),
 		})
 	}
 
@@ -24,7 +24,7 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 			"Ok":      false,
 			"Code":    fiber.StatusBadRequest,
 			"Message": err.Error(),
-			"Data":    err.Errors,
+			"Error":   err.Errors,
 		})
 
 	}
@@ -33,6 +33,6 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		"Ok":      false,
 		"Code":    fiber.StatusInternalServerError,
 		"Message": err.Error(),
-		"Data":    err.Error(),
+		"Error":   err.Error(),
 	})
 }
