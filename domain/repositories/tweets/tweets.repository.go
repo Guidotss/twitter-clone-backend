@@ -7,4 +7,5 @@ import (
 
 type TweetsRepository interface {
 	CreateTweet(createTweetDTO dtos.CreateTweetDTO) (entities.Tweet, error)
+	GetAllTweets() ([]entities.Tweet, error)
 }

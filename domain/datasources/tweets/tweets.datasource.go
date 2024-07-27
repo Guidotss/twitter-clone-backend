@@ -7,4 +7,5 @@ import (
 
 type TweetsDataSource interface {
 	CreateTweet(createTweetDTO dtos.CreateTweetDTO) (entities.Tweet, error)
+	GetAllTweets() ([]entities.Tweet, error)
 }
